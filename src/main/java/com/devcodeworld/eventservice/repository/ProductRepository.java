@@ -1,9 +1,14 @@
 package com.devcodeworld.eventservice.repository;
 
-import com.devcodeworld.entity.Stock;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.devcodeworld.eventservice.dto.ProductDTO;
+import com.devcodeworld.eventservice.entity.Product;
+import org.springframework.data.domain.Range;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 
-public interface StockRepository extends JpaRepository<Stock,Long> {
-    Stock findByStockSymbol(String stockSymbol);
+@Repository
+public interface ProductRepository extends ReactiveMongoRepository<Product, String> {
 
+    Flux<ProductDTO> findByPriceBetween(Range<Double> closed);
 }
